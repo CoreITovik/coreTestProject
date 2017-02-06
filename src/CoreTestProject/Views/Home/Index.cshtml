@@ -1,0 +1,31 @@
+﻿
+
+<div class="form-group">
+    <label class="control-label">Data to hash</label>
+    <input type="text" id="to-hash" class="form-control" />
+</div>
+<div id="result-container" class="panel panel-success">
+    <h3 class="panel-heading">Hash</h3>
+    <div class="panel-body">
+        <dl id="result-target" class="dl-horizontal"></dl>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $('#to-hash').on('input', function () {
+            var val = $(this).val();
+            if (val !== '') {
+                $.post('home/getHash', { data: val }, function (result) {
+                    $('#result-target').empty();
+                    result.forEach(function (e, i) {
+                        $('#result-target').append('<dt>' + e.name + '</dt>');
+                        $('#result-target').append('<dd>' + e.hash + '</dd>');
+                    });
+                });
+            }
+        });
+
+    </script>
+}
